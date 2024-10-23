@@ -9,7 +9,20 @@ import SwiftUI
 
 struct PrimaryButton: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button{
+            print("Button tapped")
+        } label: {
+            HStack{
+                Text("Enter Now")
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
+            }
+        }
+        .buttonStyle(BorderedProminentButtonStyle())
+        .tint(.yellow)
+        .cornerRadius(15)
     }
 }
 
