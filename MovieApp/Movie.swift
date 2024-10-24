@@ -22,32 +22,53 @@ struct Movie: Codable, Identifiable {
     let genres: String?
      
     // MARK: Computed Properity
-    
-    var imageURL: URL? {
+     
+     var imageURL: URL? {
          URL(string: posterPath ?? "")
-    }
-    
-    var unwrappedPopularity : Double {
-        popularity ?? 0.0
-    }
-    
-    var unwrappedRevenue: Double {
-        Double(revenue ?? Int(0))
-    }
-    
-    var unwrappedBudget : Double {
-        Double(budget ?? Int(0))
-    }
-    
-    var unwrappedReleaseDate : Date {
-        DateFormatter().date(from: releaseDate ?? "") ?? Date()
-    }
-    
-    var gendersArray : [String] {
-        genres?.components(separatedBy: ",") ?? []
-    }
-}
-
+     }
+     
+     var unwrappedPopularity : Double {
+         popularity ?? 0.0
+     }
+     
+     /// Returns the description of the IMDb popularity on a scale of 0 to 10
+     var shortPopularityDescription: String {
+         
+         let popularity  =  unwrappedPopularity / 10
+         
+         return String(popularity.formatted(.number.precision(.fractionLength(1))) + "/10 IMDb")
+     }
+     
+     var unwrappedRevenue: Double {
+         Double(revenue ?? Int(0))
+     }
+     
+     var unwrappedBudget : Double {
+         Double(budget ?? Int(0))
+     }
+     
+     var unwrappedReleaseDate : Date {
+         DateFormatter().date(from: releaseDate ?? "") ?? Date()
+     }
+     
+     var gendersArray : [String] {
+         genres?.components(separatedBy: ",") ?? []
+     }
+     
+     var isAdult : Bool {
+         adult ?? true
+     }
+     
+     enum CodingKeys: String, CodingKey {
+         case id = "id"
+         case title
+         case posterPath = "poster_path"
+         case releaseDate = "release_date"
+         case adult, popularity, overview,revenue, budget, tagline, genres
+         case imdbID = "imdb_id"
+     }
+     
+ }
 // MARK: Example
 extension Movie {
     static let sample = Movie(id: 01,
