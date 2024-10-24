@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingView: View {
     let movie: Movie
     let imageName = "FindingDory"
+    @Binding var onboardingCompleted : Bool
     
     var body: some View {
         VStack(spacing: 15){
@@ -58,5 +59,5 @@ struct OnboardingView: View {
             }
 
             #Preview {
-                OnboardingView(movie: Movie.sample)
+                OnboardingView(movie: Movie.sample, onboardingCompleted: .constant(true))
             }
