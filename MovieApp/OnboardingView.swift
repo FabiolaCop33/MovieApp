@@ -16,16 +16,47 @@ struct OnboardingView: View {
             
             Spacer()
             
-            Text(movie.title)
-            Text(movie.unwrappedReleaseDate, format: .dateTime.day().month().year())
-            Button("Enter now"){
-                print("Enter Now button")
+            Group {
+                                Text(movie.title)
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                
+                                Text(movie.unwrappedReleaseDate, format: .dateTime.day().month().year())
+                                    .multilineTextAlignment(.center)
+                                    .fontWeight(.light)
+                                    .padding(.bottom, 20)
+                            }
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            
+                            PrimaryButton()
+                            .padding(.horizontal, 20)
+                            
+                        }
+                        .padding()
+                        .background{
+                            AsyncImage(
+                                url: movie.imageURL,
+                                transaction: Transaction(animation: .easeIn(duration: 2))
+                                    ) { phase in
+                                        switch phase {
+                                        case .success(let image):
+                                            BlurredImageBackground(image: image)
+                                        default:
+                                            BlurredImageBackground(image: Image(imageName))
+                                        }
+                                    }
+                                    .edgesIgnoringSafeArea(.all)
+                        }
+                  
+                }
+                
+                
+                
+             
+             
             }
-        }
-        
-    }
-}
 
-#Preview {
-    OnboardingView(movie: Movie.sample)
-}
+            #Preview {
+                OnboardingView(movie: Movie.sample)
+            }
