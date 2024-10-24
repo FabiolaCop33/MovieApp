@@ -9,22 +9,30 @@ import SwiftUI
 
 struct PrimaryButton: View {
     var body: some View {
-        Button{
-            print("Button tapped")
-        } label: {
-            HStack{
-                Text("Enter Now")
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .padding(10)
+            Button {
+                print("Button tapped")
+            } label: {
+                HStack {
+                    Text("Enter Now")
+                        .fontWeight(.bold)
+                        .foregroundColor(.init(red: 0.261, green: 0.261, blue: 0.261))
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                        .background {
+                            let cornerRadius = 15.0
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                            .foregroundColor(.yellow)
+                            .background {
+                                RoundedRectangle(cornerRadius: cornerRadius)
+                                    .stroke(Color("PrimaryButttonBorderColor"), lineWidth: 2)
+                            }
+                        }
+                        .padding(.horizontal, 80)
+                }
             }
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(BorderedProminentButtonStyle())
-        .tint(.yellow)
-        .cornerRadius(15)
     }
-}
 
 #Preview {
     PrimaryButton()
